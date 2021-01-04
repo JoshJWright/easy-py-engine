@@ -76,7 +76,6 @@ class RadialCamera(Camera):
     def doLookAt(self):
         rHorizontal = self.radius * math.cos(self.verticalAngle % (2 * math.pi))
         rVertical = self.radius * math.sin(self.verticalAngle % (2 * math.pi))
-        print(self.verticalAngle, rHorizontal, rVertical)
         self.cameraPosition = (
             self.targetPosition[0]
             + rHorizontal * math.sin(self.horizontalAngle % (2 * math.pi)),

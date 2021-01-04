@@ -4,6 +4,7 @@ from OpenGL.GLU import *
 import threading
 
 from graphics.camera import *
+from graphics.objects import *
 
 
 class GraphicsEngine:
@@ -17,7 +18,7 @@ class GraphicsEngine:
 
         print("Initialising OpenGL")
         glutInit()
-        glutInitDisplayMode(GLUT_DOUBLE | GLUT_RGBA)
+        glutInitDisplayMode(GLUT_DOUBLE | GLUT_RGBA | GLUT_DEPTH)
         glutInitWindowSize(self.width, self.height)
         glutInitWindowPosition(100, 100)
 
@@ -26,6 +27,7 @@ class GraphicsEngine:
 
         print("Configuring OpenGL")
         glClearColor(0.0, 0.0, 0.0, 0.0)
+        glEnable(GL_DEPTH_TEST)
 
         glutDisplayFunc(self.displayFunc)
         glutIdleFunc(self.displayFunc)
@@ -47,30 +49,16 @@ class GraphicsEngine:
         glutSwapBuffers()
 
 
-class Cube:
-    def draw(self):
-        glEnable(GL_POINT_SMOOTH)
-        glPointSize(3)
-        glBegin(GL_POINTS)
-        glColor3fv((1.0, 1.0, 1.0))
-        glVertex3f(0.0, 0.0, 0.0)
-        glVertex3f(1.0, 0.0, 0.0)
-        glVertex3f(0.0, 1.0, 0.0)
-        glVertex3f(1.0, 1.0, 0.0)
-        glVertex3f(0.0, 0.0, 1.0)
-        glVertex3f(1.0, 0.0, 1.0)
-        glVertex3f(0.0, 1.0, 1.0)
-        glVertex3f(1.0, 1.0, 1.0)
-        glEnd()
-
-
 class ObjectGraphicsEngineRadialCamera(GraphicsEngine):
     def __init__(self, width, height):
-        self.objects = [Cube()]
+        self.objects = []
         super().__init__(
             width, height, RadialCamera(), self.drawingFunction, self.keyboardFunction
         )
         self.camera.setRadius(10)
+
+    def addSceneObject(self, obj: SceneObject):
+        self.objects.append(obj)
 
     def drawingFunction(self):
         for obj in self.objects:
