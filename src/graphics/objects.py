@@ -4,6 +4,15 @@ from OpenGL.GLU import *
 
 
 class SceneObject:
+    position = (0.0, 0.0, 0.0)
+
+    def drawAtPos(self):
+        glPushMatrix()
+        glTranslatef(self.position[0], self.position[1], self.position[2])
+        # glTranslatef(position[0], position[1], position[2])
+        self.draw()
+        glPopMatrix()
+
     def draw(self):
         pass
 

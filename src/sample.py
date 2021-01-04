@@ -9,3 +9,9 @@ ge = ObjectGraphicsEngineRadialCamera(
 )
 
 ge.addSceneObject(TestCube())
+a = TestCube()
+ge.addSceneObject(a)
+
+while True:
+    sleep(0.5)
+    a.position = (1, 1, 1)

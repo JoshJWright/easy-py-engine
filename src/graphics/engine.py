@@ -62,7 +62,7 @@ class ObjectGraphicsEngineRadialCamera(GraphicsEngine):
 
     def drawingFunction(self):
         for obj in self.objects:
-            obj.draw()
+            obj.drawAtPos()
 
     def keyboardFunction(self, key, x, y):
         if ord(key) == 113:
